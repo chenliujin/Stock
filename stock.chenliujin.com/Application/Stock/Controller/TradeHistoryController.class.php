@@ -10,7 +10,12 @@ class TradeHistoryController extends Controller
 	 */
 	public function index()
 	{
-		echo 'index';
+		$trade_history = new \trade_history;
+		$list = $trade_history->findAll();
+
+		$this->assign('trade_history_list', $list);
+
+		$this->display();
 	}
 
 
@@ -67,6 +72,7 @@ class TradeHistoryController extends Controller
 	 */
 	public function update()
 	{
+		echo '>>>>>>>>>>';
 		echo '<pre>';
 		print_r($_REQUEST);
 	}
