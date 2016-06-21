@@ -25,6 +25,10 @@ class TradeHistoryController extends Controller
 	}
 
 
+	/**
+	 * @author chenliujin <liujin.chen@qq.com>
+	 * @since 2016-06-21
+	 */
 	public function store()
 	{
 		if (empty($_REQUEST['stock_id'])) {
@@ -43,9 +47,12 @@ class TradeHistoryController extends Controller
 		$trade_history->created_at = date('Y-m-d H:i:s');
 		$trade_history->modified_at = date('Y-m-d H:i:s');
 		$rs = $trade_history->insert();
-        if ($rs) {
-			echo $rs;
-        }
+
+		if ($rs) {
+			redirect('/index.php?m=Stock&c=TradeHistory');
+		} else {
+			exit('error');
+		}
 	}
 
 
@@ -72,9 +79,27 @@ class TradeHistoryController extends Controller
 	 */
 	public function update()
 	{
-		echo '>>>>>>>>>>';
-		echo '<pre>';
-		print_r($_REQUEST);
+		$params = array(
+			'id'	=> intval($_POST['id'])
+		);
+
+		$trade_history = new \trade_history;
+		$trade_history = $trade_history->get($params);
+
+		$trade_history->stock_id = $_POST['stock_id'];
+		$trade_history->trade_day = $_POST['trade_day'];
+		$trade_history->trade_type = $_POST['trade_type'];
+		$trade_history->num = $_POST['num'];
+		$trade_history->price = $_POST['price'];
+		$trade_history->transfer_fee = $_POST['transfer_fee'];
+		$trade_history->poundage = $_POST['poundage'];
+		$rs = $trade_history->update();
+
+		if ($rs) {
+			redirect('/index.php?m=Stock&c=TradeHistory');
+		} else {
+			exit('error');
+		}
 	}
 
 }

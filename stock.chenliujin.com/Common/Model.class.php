@@ -73,6 +73,7 @@ class Model
                 return $sth->execute($params);
         }
 
+
         /*
          * @author chenliujin <liujin.chen@qq.com>
          * @since 2013-02-24
@@ -80,8 +81,6 @@ class Model
         public function get($pk)
         {
 			try {
-				$object = new self;
-
 				$keys = $this->getPrimaryKey();
 
 				foreach ($keys as $key) {
@@ -93,8 +92,7 @@ class Model
 
 				$sql = 'SELECT * FROM ' . $this->getTableName() . ' WHERE ' . implode(' AND ', $where);
 
-				$result = array_shift(self::query($sql, $params, get_class($object)));
-
+				$result = array_shift(self::query($sql, $params, get_class($this)));
 
 				return $result;
 			} catch (PDOException $e) {
@@ -105,6 +103,7 @@ class Model
 				return NULL;
 			}
         }
+
 
         /*
          * @author chenliujin <liujin.chen@qq.com>
@@ -161,15 +160,13 @@ class Model
                 return $dbh->lastInsertId();
         }
 
+
         /*
          * @author chenliujin <liujin.chen@qq.com>
          * @since 2013-02-24
          */
         public function update()
         {
-                $class = $this->getTableName();
-                $object = new $class;
-
                 $fields = get_object_vars($this);
 
                 $pk = $this->getPrimaryKey();
@@ -199,6 +196,7 @@ class Model
 
                 return $rs;
         }
+
 
         /*
          * @author chenliujin <liujin.chen@qq.com>
