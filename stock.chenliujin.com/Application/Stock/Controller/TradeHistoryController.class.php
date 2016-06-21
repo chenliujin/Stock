@@ -41,21 +41,63 @@ class TradeHistoryController extends Controller
 			exit('404');
 		}
 
+		$stock_id 	= $_POST['stock_id'];
+		$price		= $_POST['price'];
+		$trade_type	= strtoupper($_POST['trade_type']);
+		$num		= intval($_POST['num']);
+
 		$trade_history = new \trade_history;
-		$trade_history->stock_id = $_REQUEST['stock_id'];
-		$trade_history->trade_day = $_REQUEST['trade_day'];
-		$trade_history->trade_type = strtoupper($_REQUEST['trade_type']);
-		$trade_history->num = intval($_REQUEST['num']);
-		$trade_history->price = $_REQUEST['price'];
-		$trade_history->poundage = $_REQUEST['poundage']; 
-		$trade_history->transfer_fee = $_REQUEST['transfer_fee'];
-		$trade_history->stamp_tax = $trade_history->trade_type == 'S' ? $trade_history->total * 0.001 : 0; 
-		$trade_history->created_at = date('Y-m-d H:i:s');
-		$trade_history->modified_at = date('Y-m-d H:i:s');
+		$trade_history->stock_id		= $stock_id; 
+		$trade_history->trade_day		= $_REQUEST['trade_day'];
+		$trade_history->trade_type		= $trade_type; 
+		$trade_history->num				= $num;
+		$trade_history->price			= $price; 
+		$trade_history->poundage		= $_REQUEST['poundage']; 
+		$trade_history->transfer_fee	= $_REQUEST['transfer_fee'];
+		$trade_history->stamp_tax		= $trade_history->trade_type == 'S' ? $trade_history->total * 0.001 : 0; 
+		$trade_history->created_at		= date('Y-m-d H:i:s');
+		$trade_history->modified_at		= date('Y-m-d H:i:s');
 		$rs = $trade_history->insert();
 
 		if ($rs) {
-			redirect('/index.php?m=Stock&c=TradeHistory');
+			$params = array(
+				'stock_id' 	=> $_POST['stock_id'],
+				'price'		=> $_POST['price']
+			);
+			$price_distribute = new \price_distribute;
+			$result = $price_distribute->findAll($params);
+			if (empty($result)) {
+				switch ($trade_type) {
+				case 'B':
+					$price_distribute->buy	= $num;
+					$price_distribute->sale	= 0;
+					break;
+				case 'S':
+					$price_distribute->buy	= 0; 
+					$price_distribute->sale	= $num;
+					break;
+				}
+
+				$price_distribute->stock_id 	= $stock_id;
+				$price_distribute->price		= $price;
+				$price_distribute->date_added	= date('Y-m-d H:i:s');
+				$price_distribute->insert();
+			} else {
+				$price_distribute = $result[0];
+
+				switch ($trade_type) {
+				case 'B':
+					$price_distribute->buy += $num;
+					break;
+				case 'S':
+					$price_distribute->sale	+= $num;
+					break;
+				}
+
+				$price_distribute->update();
+			}
+
+			redirect('/index.php?m=Stock&c=TradeHistory&stock_id=' . $stock_id);
 		} else {
 			exit('error');
 		}
@@ -75,7 +117,6 @@ class TradeHistoryController extends Controller
 
 		$this->assign('trade_history', $trade_history);
 		$this->display();
-
 	}
 
 
