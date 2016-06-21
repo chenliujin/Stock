@@ -10,8 +10,14 @@ class TradeHistoryController extends Controller
 	 */
 	public function index()
 	{
+		$params = array();
+
+		if (!empty($_GET['stock_id'])) {
+			$params['stock_id'] = $_GET['stock_id'];
+		}
+
 		$trade_history = new \trade_history;
-		$list = $trade_history->findAll();
+		$list = $trade_history->findAll($params);
 
 		$this->assign('trade_history_list', $list);
 

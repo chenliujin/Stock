@@ -1,9 +1,48 @@
 <style>
+table {
+	width: 100%;
+	border-collapse:collapse;
+}
+th {
+	background: #E0FFFF;
+}
 th, td {
-	padding: 3px 0.5em;
+	padding: 0.3em 0.5em;
+	text-align: center;
 	border: 1px solid #ccc;
 }
+fieldset {
+	margin: 1em;
+	padding: 1em;
+	color:#333; 
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+fieldset legend {
+	font-weight: bold;
+}
+fieldset div {
+	margin: 0 0 5px 0;
+}
+
+form label {
+	width: 100px;
+	text-align: right;
+	display: inline-block;
+}
+
 </style>
+
+<form>
+	<input type="hidden" name="m" value="Stock" />
+	<input type="hidden" name="c" value="TradeHistory" />
+	<fieldset>
+		<legend>Search</legend>
+		<div><label>股票代码：</label><input type="text" name="stock_id" value="<?php echo !empty($_GET['stock_id']) ? $_GET['stock_id'] : ''; ?>" />&nbsp;&nbsp;<input type="Submit" value="Search" />&nbsp;&nbsp;<a href="/index.php?m=Stock&c=TradeHistory&a=create<?php echo !empty($_GET['stock_id']) ? '&stock_id=' . $_GET['stock_id'] : ''; ?>">新增</a></div>
+	</fieldset>
+</form>
 <table>
 	<tr>
 		<th>ID</th>
@@ -12,6 +51,9 @@ th, td {
 		<th>交易类型</th>
 		<th>数量</th>
 		<th>价格</th>
+		<th>手续费</th>
+		<th>过户费</th>
+		<th>印花税</th>
 		<th>操作</th>
 	</tr>
 	<?php foreach ($trade_history_list as $trade_history) { ?>
@@ -22,6 +64,9 @@ th, td {
 		<td><?php echo $trade_history->trade_type; ?></td>
 		<td><?php echo $trade_history->num; ?></td>
 		<td><?php echo $trade_history->price; ?></td>
+		<td><?php echo $trade_history->poundage; ?></td>
+		<td><?php echo $trade_history->transfer_fee; ?></td>
+		<td><?php echo $trade_history->stamp_tax; ?></td>
 		<td><a href="/index.php?m=Stock&c=TradeHistory&a=edit&id=<?php echo $trade_history->id; ?>">编辑</a></td>
 	</tr>
 	<?php } ?>

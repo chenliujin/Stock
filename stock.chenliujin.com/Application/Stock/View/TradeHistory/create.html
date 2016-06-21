@@ -35,7 +35,7 @@ form label {
             <fieldset>
                 <legend>成交记录</legend>
 
-				<div><label>股票代码：</label><input type="text" name="stock_id" value="" /></div>
+				<div><label>股票代码：</label><input type="text" name="stock_id" value="<?php echo !empty($_GET['stock_id']) ? $_GET['stock_id'] : '' ?>" /></div>
 				<div><label>交易日期：</label><input type="text" name="trade_day" value="" /></div>
 				<div><label>买卖标志：</label><select name="trade_type">
 						<option value="B">证券买入</option>
