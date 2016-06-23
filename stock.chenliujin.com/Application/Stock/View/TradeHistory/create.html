@@ -17,7 +17,7 @@ fieldset div {
 }
 
 form label {
-	width: 100px;
+	width: 150px;
 	text-align: right;
 	display: inline-block;
 }
@@ -33,20 +33,19 @@ form label {
         <form action="//www.chenliujin.com/index.php?m=Stock&c=TradeHistory&a=store" method="POST">
 
             <fieldset>
-                <legend>成交记录</legend>
-
-				<div><label>股票代码：</label><input type="text" name="stock_id" value="<?php echo !empty($_GET['stock_id']) ? $_GET['stock_id'] : '' ?>" /></div>
-				<div><label>交易日期：</label><input type="text" name="trade_day" value="" /></div>
-				<div><label>买卖标志：</label><select name="trade_type">
-						<option value="B">证券买入</option>
-						<option value="S">证券卖出</option>
+                <legend>交割单</legend>
+				<div><label>股票代码：</label><input type="text" name="stock_code" value="<?php echo !empty($_GET['stock_code']) ? $_GET['stock_code'] : '' ?>" /></div>
+				<div><label>交易日期：</label><input type="text" name="deal_day" value="<?php echo date('Y-m-d'); ?>" /></div>
+				<div><label>买卖标志：</label><select name="deal_type">
+						<option value="buy">证券买入</option>
+						<option value="sale">证券卖出</option>
 					</select>
 				</div>
-				<div><label>数量：</label><input type="text" name="num" value="" /></div>
-				<div><label>价格：</label><input type="text" name="price" value="" /></div>
-				<div><label>过户费：</label><input type="text" name="transfer_fee" value="" /></div>
+				<div><label>成交数量：</label><input type="text" name="quantity" value="" /></div>
+				<div><label>成交价格：</label><input type="text" name="price" value="" /></div>
 				<div><label>手续费：</label><input type="text" name="poundage" value="" /></div>
 				<div><label>印花税：</label><input type="text" name="stamp_tax" value="" /></div>
+				<div><label>杂费/过户费：</label><input type="text" name="transfer_fee" value="" /></div>
             </fieldset>
 
             <span class="buttons">

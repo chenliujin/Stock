@@ -33,8 +33,8 @@ class price_distribute extends Model
 
 		foreach ($params as $field => $value) {
 			switch ($field) {
-			case 'stock_id':
-				$where[] = 'stock_id = ?';
+			default:
+				$where[] = $field . ' = ?';
 				$where_array[] = $value; 
 				break;
 			}

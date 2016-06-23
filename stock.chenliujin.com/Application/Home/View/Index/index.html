@@ -24,8 +24,8 @@ th, td {
 		<td><?php echo $stock->id; ?></td>
 		<td><?php echo $stock->name; ?></td>
 		<td>
-			<a href="/index.php?m=Stock&c=TradeHistory&stock_id=<?php echo $stock->id; ?>">成交记录</a>
-			<a href="/index.php?m=stock&c=PriceDistribute&stock_id=<?php echo $stock->id; ?>">价格分布</a>
+			<a href="/index.php?m=Stock&c=TradeHistory&stock_code=<?php echo $stock->id; ?>">历史成交</a>
+			<a href="/index.php?m=stock&c=PriceDistribute&stock_code=<?php echo $stock->id; ?>">价格分布</a>
 		</td>
 	</tr>
 	<?php } ?>

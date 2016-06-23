@@ -16,7 +16,7 @@ fieldset div {
 }
 
 form label {
-	width: 100px;
+	width: 150px;
 	text-align: right;
 	display: inline-block;
 }
@@ -34,19 +34,19 @@ form label {
 			<input type="hidden" name="id" value="<?php echo $trade_history->id; ?>" />
 
             <fieldset class="ui-widget-content">
-                <legend>成交记录</legend>
+                <legend>交割单</legend>
 
-				<div><label>股票代码：</label><input type="text" name="stock_id" value="<?php echo $trade_history->stock_id; ?>" /></div>
-				<div><label>交易日期：</label><input type="text" name="trade_day" value="<?php echo $trade_history->trade_day; ?>" /></div>
-				<div><label>买卖标志：</label><select name="trade_type">
-					                <option value="B">证券买入</option>
-									<option value="S" <?php echo $trade_history->trade_type == 'S' ? 'selected="selected"' : '' ?> >证券卖出</option>
+				<div><label>股票代码：</label><input type="text" name="stock_code" value="<?php echo $trade_history->stock_code; ?>" /></div>
+				<div><label>交易日期：</label><input type="text" name="deal_day" value="<?php echo $trade_history->deal_day; ?>" /></div>
+				<div><label>买卖标志：</label><select name="deal_type">
+					                <option value="buy">证券买入</option>
+									<option value="sale" <?php echo $trade_history->deal_type == 'sale' ? 'selected="selected"' : '' ?> >证券卖出</option>
 								</select></div>
-				<div><label>数量：</label><input type="text" name="num" value="<?php echo $trade_history->num; ?>" /></div>
-				<div><label>价格：</label><input type="text" name="price" value="<?php echo $trade_history->price; ?>" /></div>
-				<div><label>过户费：</label><input type="text" name="transfer_fee" value="<?php echo $trade_history->transfer_fee; ?>" /></div>
+				<div><label>成交数量：</label><input type="text" name="quantity" value="<?php echo $trade_history->quantity; ?>" /></div>
+				<div><label>成交价格：</label><input type="text" name="price" value="<?php echo $trade_history->price; ?>" /></div>
 				<div><label>手续费：</label><input type="text" name="poundage" value="<?php echo $trade_history->poundage; ?>" /></div>
 				<div><label>印花税：</label><input type="text" name="stamp_tax" value="<?php echo $trade_history->stamp_tax; ?>" /></div>
+				<div><label>杂费/过户费：</label><input type="text" name="transfer_fee" value="<?php echo $trade_history->transfer_fee; ?>" /></div>
             </fieldset>
 
             <span class="buttons">

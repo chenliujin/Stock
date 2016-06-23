@@ -16,7 +16,7 @@ class PriceDistributeController extends Controller
 	public function data()
 	{
 		$params = array(
-			'stock_id' => $_GET['stock_id']
+			'stock_code' => $_GET['stock_code']
 		);
 
 		$price_distribute = new \price_distribute;

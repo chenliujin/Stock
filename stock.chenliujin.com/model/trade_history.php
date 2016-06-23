@@ -50,6 +50,24 @@ class trade_history extends Model
 
 		return Model::$dbo->findAll();
 	}
+
+
+	/**
+	 * @author chenliujin <liujin.chen@qq.com>
+	 * @since 2016-06-23
+	 */
+	static public function DealTypeName($deal_type)
+	{
+		switch ($deal_type) {
+		case 'buy':
+			return '证券买入';
+			break;
+
+		case 'sale':
+			return '证券卖出';
+			break;
+		}
+	}
 }
 
 ?>
