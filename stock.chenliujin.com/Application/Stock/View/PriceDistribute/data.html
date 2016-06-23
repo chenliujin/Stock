@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<anychart>
+	<settings>
+		<animation enabled="True"/>
+	</settings>
+	<charts>
+		<chart plot_type="CategorizedVertical">
+            <data_plot_settings default_series_type="Bar">
+                <bar_series point_padding="-1" group_padding="0" shape_type="Cylinder">
+                    <tooltip_settings enabled="true">
+					<format>
+Price: {%Name}
+Num: {%YValue}{numDecimals:0}
+					</format>
+         			</tooltip_settings>
+                </bar_series>
+            </data_plot_settings>
+            <chart_settings>
+                <title enabled="false">
+                    <text>Price Distribute</text>
+                </title>
+                <chart_background enabled="false"/>
+            </chart_settings>
+			<data>
+		    	<series name="Series 1">
+					<?php foreach ($data['B'] as $price => $num) { ?>
+					<point name="<?php echo $price; ?>" y="<?php echo $num; ?>"/>
+					<?php } ?>
+		    	</series>
+				<series name="Series 2">
+					<?php foreach ($data['S'] as $price => $num) { ?>
+					<point name="<?php echo $price; ?>" y="<?php echo $num; ?>"/>
+					<?php } ?>
+		    	</series>
+		    </data>
+		</chart>
+	</charts>
+</anychart>
