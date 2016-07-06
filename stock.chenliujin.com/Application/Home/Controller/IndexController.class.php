@@ -10,8 +10,12 @@ class IndexController extends Controller {
 	 */
 	public function index()
 	{
+		$params = array(
+			'status'	=> 1
+		);
+
 		$stock = new \stock;
-		$list = $stock->findAll();
+		$list = $stock->findAll($params);
 
 		$this->assign('stock_list', $list);
 		$this->display();

@@ -47,6 +47,12 @@ form label {
 				<div><label>手续费：</label><input type="text" name="poundage" value="<?php echo $trade_history->poundage; ?>" /></div>
 				<div><label>印花税：</label><input type="text" name="stamp_tax" value="<?php echo $trade_history->stamp_tax; ?>" /></div>
 				<div><label>杂费/过户费：</label><input type="text" name="transfer_fee" value="<?php echo $trade_history->transfer_fee; ?>" /></div>
+				<div><label>状态：</label><select name="status">
+						<option value="0">未结单</option>
+						<option value="1" <?php echo $trade_history->status ? 'selected="selected"' : ''; ?> >已结单</option>
+					</select>
+				</div>
+
             </fieldset>
 
             <span class="buttons">

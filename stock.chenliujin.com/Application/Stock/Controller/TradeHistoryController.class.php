@@ -16,6 +16,10 @@ class TradeHistoryController extends Controller
 			$params['stock_code'] = $_GET['stock_code'];
 		}
 
+		if (isset($_GET['status'])) {
+			$params['status'] = $_GET['status']; 
+		}
+
 		$trade_history = new \trade_history;
 		$list = $trade_history->findAll($params);
 
@@ -50,7 +54,7 @@ class TradeHistoryController extends Controller
 		$transfer_fee	= $_POST['transfer_fee'];
 		$stamp_tax		= $_POST['stamp_tax'];
 
-		$amount = $quantity * $price;
+		$amount = abs($quantity) * $price;
 		switch ($deal_type) {
 		case 'buy':
 			$amount += $poundage;
@@ -62,6 +66,8 @@ class TradeHistoryController extends Controller
 			$amount -= $poundage;
 			$amount -= $transfer_fee;
 			$amount -= $stamp_tax;
+
+			$quantity = -abs($quantity);
 			break;
 		}
 
@@ -93,7 +99,7 @@ class TradeHistoryController extends Controller
 					break;
 				case 'sale':
 					$price_distribute->buy	= 0; 
-					$price_distribute->sale	= $quantity;
+					$price_distribute->sale	= abs($quantity);
 					break;
 				}
 
@@ -109,7 +115,7 @@ class TradeHistoryController extends Controller
 					$price_distribute->buy += $quantity;
 					break;
 				case 'sale':
-					$price_distribute->sale	+= $quantity;
+					$price_distribute->sale	+= abs($quantity);
 					break;
 				}
 
@@ -153,6 +159,7 @@ class TradeHistoryController extends Controller
 		$poundage		= $_POST['poundage'];
 		$transfer_fee	= $_POST['transfer_fee'];
 		$stamp_tax		= $_POST['stamp_tax'];
+		$status			= $_POST['status'];
 
 		$amount = abs($quantity) * $price;
 		switch ($deal_type) {
@@ -187,6 +194,7 @@ class TradeHistoryController extends Controller
 		$trade_history->stamp_tax		= $stamp_tax;
 		$trade_history->poundage		= $poundage;
 		$trade_history->amount			= $amount;
+		$trade_history->status			= $status;
 
 		$rs = $trade_history->update();
 
