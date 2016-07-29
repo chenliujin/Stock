@@ -10,8 +10,18 @@ class TradeHistoryController extends Controller
 	 */
 	public function index()
 	{
+		$params = array();
+
+		if (!empty($_GET['stock_code'])) {
+			$params['stock_code'] = $_GET['stock_code'];
+		}
+
+		if (isset($_GET['status'])) {
+			$params['status'] = $_GET['status']; 
+		}
+
 		$trade_history = new \trade_history;
-		$list = $trade_history->findAll();
+		$list = $trade_history->findAll($params);
 
 		$this->assign('trade_history_list', $list);
 
@@ -25,27 +35,97 @@ class TradeHistoryController extends Controller
 	}
 
 
+	/**
+	 * @author chenliujin <liujin.chen@qq.com>
+	 * @since 2016-06-21
+	 */
 	public function store()
 	{
-		if (empty($_REQUEST['stock_id'])) {
+		if (empty($_REQUEST['stock_code'])) {
 			exit('404');
 		}
 
+		$stock_code		= $_POST['stock_code'];
+		$deal_day		= $_POST['deal_day'];
+		$deal_type		= $_POST['deal_type'];
+		$quantity		= intval($_POST['quantity']);
+		$price			= $_POST['price'];
+		$poundage		= $_POST['poundage'];
+		$transfer_fee	= $_POST['transfer_fee'];
+		$stamp_tax		= $_POST['stamp_tax'];
+
+		$amount = abs($quantity) * $price;
+		switch ($deal_type) {
+		case 'buy':
+			$amount += $poundage;
+			$amount += $transfer_fee;
+			$amount = -$amount;
+			break;
+
+		case 'sale':
+			$amount -= $poundage;
+			$amount -= $transfer_fee;
+			$amount -= $stamp_tax;
+
+			$quantity = -abs($quantity);
+			break;
+		}
+
 		$trade_history = new \trade_history;
-		$trade_history->stock_id = $_REQUEST['stock_id'];
-		$trade_history->trade_day = $_REQUEST['trade_day'];
-		$trade_history->trade_type = strtoupper($_REQUEST['trade_type']);
-		$trade_history->num = intval($_REQUEST['num']);
-		$trade_history->price = $_REQUEST['price'];
-		$trade_history->poundage = $_REQUEST['poundage']; 
-		$trade_history->transfer_fee = $_REQUEST['transfer_fee'];
-		$trade_history->stamp_tax = $trade_history->trade_type == 'S' ? $trade_history->total * 0.001 : 0; 
-		$trade_history->created_at = date('Y-m-d H:i:s');
-		$trade_history->modified_at = date('Y-m-d H:i:s');
+		$trade_history->stock_code		= $stock_code; 
+		$trade_history->deal_day		= $deal_day; 
+		$trade_history->deal_type		= $deal_type; 
+		$trade_history->quantity		= $quantity;
+		$trade_history->price			= $price; 
+		$trade_history->stamp_tax		= $stamp_tax; 
+		$trade_history->poundage		= $poundage; 
+		$trade_history->transfer_fee	= $transfer_fee;
+		$trade_history->amount			= $amount;
+		$trade_history->date_added		= date('Y-m-d H:i:s');
 		$rs = $trade_history->insert();
-        if ($rs) {
-			echo $rs;
-        }
+
+		if ($rs) {
+			$params = array(
+				'stock_code'	=> $stock_code,
+				'price'			=> $price
+			);
+			$price_distribute = new \price_distribute;
+			$result = $price_distribute->findAll($params);
+			if (empty($result)) {
+				switch ($deal_type) {
+				case 'buy':
+					$price_distribute->buy	= $quantity;
+					$price_distribute->sale	= 0;
+					break;
+				case 'sale':
+					$price_distribute->buy	= 0; 
+					$price_distribute->sale	= abs($quantity);
+					break;
+				}
+
+				$price_distribute->stock_code 	= $stock_code;
+				$price_distribute->price		= $price;
+				$price_distribute->date_added	= date('Y-m-d H:i:s');
+				$price_distribute->insert();
+			} else {
+				$price_distribute = $result[0];
+
+				switch ($deal_type) {
+				case 'buy':
+					$price_distribute->buy += $quantity;
+					break;
+				case 'sale':
+					$price_distribute->sale	+= abs($quantity);
+					break;
+				}
+
+				$price_distribute->update();
+			}
+
+			redirect('/index.php?m=Stock&c=TradeHistory&stock_code=' . $stock_code);
+		} else {
+			exit('error');
+		}
 	}
 
 
@@ -62,7 +142,6 @@ class TradeHistoryController extends Controller
 
 		$this->assign('trade_history', $trade_history);
 		$this->display();
-
 	}
 
 
@@ -72,9 +151,58 @@ class TradeHistoryController extends Controller
 	 */
 	public function update()
 	{
-		echo '>>>>>>>>>>';
-		echo '<pre>';
-		print_r($_REQUEST);
+		$stock_code 	= $_POST['stock_code'];
+		$deal_day		= $_POST['deal_day'];
+		$deal_type		= $_POST['deal_type'];
+		$quantity		= $_POST['quantity'];
+		$price			= $_POST['price'];
+		$poundage		= $_POST['poundage'];
+		$transfer_fee	= $_POST['transfer_fee'];
+		$stamp_tax		= $_POST['stamp_tax'];
+		$status			= $_POST['status'];
+
+		$amount = abs($quantity) * $price;
+		switch ($deal_type) {
+		case 'buy':
+			$amount += $poundage;
+			$amount += $transfer_fee;
+			$amount = -$amount;
+			break;
+
+		case 'sale':
+			$amount -= $poundage;
+			$amount -= $transfer_fee;
+			$amount -= $stamp_tax;
+
+			$quantity = -abs($quantity);
+			break;
+		}
+
+		$params = array(
+			'id'	=> intval($_POST['id'])
+		);
+
+		$trade_history = new \trade_history;
+		$trade_history = $trade_history->get($params);
+
+		$trade_history->stock_code		= $stock_code;
+		$trade_history->deal_day		= $deal_day;
+		$trade_history->deal_type		= $deal_type;
+		$trade_history->quantity		= $quantity;
+		$trade_history->price			= $price;
+		$trade_history->transfer_fee	= $transfer_fee;
+		$trade_history->stamp_tax		= $stamp_tax;
+		$trade_history->poundage		= $poundage;
+		$trade_history->amount			= $amount;
+		$trade_history->status			= $status;
+
+		$rs = $trade_history->update();
+
+		if ($rs) {
+			redirect('/index.php?m=Stock&c=TradeHistory&stock_code=' . $stock_code);
+		} else {
+			exit('error');
+		}
 	}
 
 }

@@ -1,0 +1,66 @@
+<style>
+fieldset {
+	margin: 1em;
+	padding: 1em;
+	color:#333; 
+	border: 1px solid #ccc;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+}
+fieldset legend {
+	font-weight: bold;
+}
+fieldset div {
+	margin: 0 0 5px 0;
+}
+
+form label {
+	width: 150px;
+	text-align: right;
+	display: inline-block;
+}
+</style>
+
+
+<div class="mod ui-widget-content ui-helper-clearfix ui-corner-all">
+
+	<div class="hd ui-widget-header ui-helper-clearfix ui-corner-all">
+        <h2><?php echo $title; ?></h2>
+	</div>
+
+	<div class="bd">
+        <form action="//www.chenliujin.com/index.php?m=Stock&c=TradeHistory&a=update" method="POST">
+			<input type="hidden" name="id" value="<?php echo $trade_history->id; ?>" />
+
+            <fieldset class="ui-widget-content">
+                <legend>交割单</legend>
+
+				<div><label>股票代码：</label><input type="text" name="stock_code" value="<?php echo $trade_history->stock_code; ?>" /></div>
+				<div><label>交易日期：</label><input type="text" name="deal_day" value="<?php echo $trade_history->deal_day; ?>" /></div>
+				<div><label>买卖标志：</label><select name="deal_type">
+					                <option value="buy">证券买入</option>
+									<option value="sale" <?php echo $trade_history->deal_type == 'sale' ? 'selected="selected"' : '' ?> >证券卖出</option>
+								</select></div>
+				<div><label>成交数量：</label><input type="text" name="quantity" value="<?php echo $trade_history->quantity; ?>" /></div>
+				<div><label>成交价格：</label><input type="text" name="price" value="<?php echo $trade_history->price; ?>" /></div>
+				<div><label>手续费：</label><input type="text" name="poundage" value="<?php echo $trade_history->poundage; ?>" /></div>
+				<div><label>印花税：</label><input type="text" name="stamp_tax" value="<?php echo $trade_history->stamp_tax; ?>" /></div>
+				<div><label>杂费/过户费：</label><input type="text" name="transfer_fee" value="<?php echo $trade_history->transfer_fee; ?>" /></div>
+				<div><label>状态：</label><select name="status">
+						<option value="0">未结单</option>
+						<option value="1" <?php echo $trade_history->status ? 'selected="selected"' : ''; ?> >已结单</option>
+					</select>
+				</div>
+
+            </fieldset>
+
+            <span class="buttons">
+				<input type="submit" value="提交" />
+            </span>
+
+        </form>
+    </div>
+</div>
+
+

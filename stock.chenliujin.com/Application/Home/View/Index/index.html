@@ -1,0 +1,18 @@
+<include file="Public/header.html" />
+<table>
+	<tr>
+		<th>股票代码</th>
+		<th>股票名称</th>
+		<th>操作</th>
+	</tr>
+	<?php foreach ($stock_list as $stock) { ?>
+	<tr>
+		<td><?php echo $stock->id; ?></td>
+		<td><?php echo $stock->name; ?></td>
+		<td>
+			<a href="/index.php?m=Stock&c=TradeHistory&stock_code=<?php echo $stock->id; ?>&status=0">历史成交</a>
+			<a href="/index.php?m=stock&c=PriceDistribute&stock_code=<?php echo $stock->id; ?>">价格分布</a>
+		</td>
+	</tr>
+	<?php } ?>
+</table>

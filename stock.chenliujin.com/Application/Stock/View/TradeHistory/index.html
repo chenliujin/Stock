@@ -1,27 +1,44 @@
-<style>
-th, td {
-	padding: 3px 0.5em;
-	border: 1px solid #ccc;
-}
-</style>
+<include file="Public/header.html" />
+<form>
+	<input type="hidden" name="m" value="Stock" />
+	<input type="hidden" name="c" value="TradeHistory" />
+	<fieldset>
+		<legend>Search</legend>
+		<div><label>股票代码：</label><input type="text" name="stock_code" value="<?php echo !empty($_GET['stock_code']) ? $_GET['stock_code'] : ''; ?>" /></div>
+		<div><label>状态：</label><select name="status">
+				<option value="0">未结单</option>
+				<option value="1" <?php echo $_GET['status'] ? 'selected="selected"' : ''; ?>>已结单</option>
+			</select>
+		</div>
+		<div><label></label><input type="Submit" value="Search" />&nbsp;&nbsp;<a href="/index.php?m=Stock&c=TradeHistory&a=create<?php echo !empty($_GET['stock_code']) ? '&stock_code=' . $_GET['stock_code'] : ''; ?>">新增</a></div>
+	</fieldset>
+</form>
 <table>
 	<tr>
 		<th>ID</th>
 		<th>代码</th>
-		<th>交易日期</th>
+		<th>成交日期</th>
 		<th>交易类型</th>
-		<th>数量</th>
-		<th>价格</th>
+		<th>成交数量</th>
+		<th>成交价格</th>
+		<th>手续费</th>
+		<th>其他杂费</th>
+		<th>印花税</th>
+		<th>发生金额</th>
 		<th>操作</th>
 	</tr>
 	<?php foreach ($trade_history_list as $trade_history) { ?>
 	<tr>
 		<td><?php echo $trade_history->id; ?></td>
-		<td><?php echo $trade_history->stock_id; ?></td>
-		<td><?php echo $trade_history->trade_day; ?></td>
-		<td><?php echo $trade_history->trade_type; ?></td>
-		<td><?php echo $trade_history->num; ?></td>
+		<td><?php echo $trade_history->stock_code; ?></td>
+		<td><?php echo $trade_history->deal_day; ?></td>
+		<td><?php echo \trade_history::DealTypeName($trade_history->deal_type); ?></td>
+		<td><?php echo $trade_history->quantity; ?></td>
 		<td><?php echo $trade_history->price; ?></td>
+		<td><?php echo $trade_history->poundage; ?></td>
+		<td><?php echo $trade_history->transfer_fee; ?></td>
+		<td><?php echo $trade_history->stamp_tax; ?></td>
+		<td><?php echo $trade_history->amount; ?></td>
 		<td><a href="/index.php?m=Stock&c=TradeHistory&a=edit&id=<?php echo $trade_history->id; ?>">编辑</a></td>
 	</tr>
 	<?php } ?>
