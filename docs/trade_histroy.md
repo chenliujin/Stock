@@ -1,3 +1,16 @@
-POST /trade_histroy/
+# POST /trade_histroy/
 
-params
+## params
+- stock_code
+- starttime
+- endtime 
+
+## retuen
+{
+    data: {
+        price: {
+            buy: 10,
+            sale: 10
+        }
+    }
+}
