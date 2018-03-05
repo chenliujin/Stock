@@ -1,4 +1,4 @@
-# POST /trade_histroy/
+# GET /price_distribute/
 
 ## params
 - stock_code
