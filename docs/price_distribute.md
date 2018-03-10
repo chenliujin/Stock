@@ -1,6 +1,11 @@
-# GET /price_distribute/
 
-## params
+# 查询
+
+## URL: /price_distribute/
+
+## Method: GET
+
+## Params
 - stock_code
 - starttime
 - endtime 
