@@ -5,19 +5,26 @@
 
 ## Method: GET
 
-## Params
+## Params:
 - stock_code
 - starttime
 - endtime 
 
-## return
+## return:
+
 ```
 {
-    data: {
-        price: {
+    data: [
+        {
+            price: 6.00,
             buy: 10,
+            sale: 0
+        },
+        {
+            price: 7.00,
+            buy: 0,
             sale: 10
         }
-    }
+    ]
 }
 ```
