@@ -1,7 +1,7 @@
 
 # 查询
 
-## URL: /price_distribute/
+## URL: /stock/price_distribute/
 
 ## Method: GET
 
