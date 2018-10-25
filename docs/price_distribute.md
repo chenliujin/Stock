@@ -8,23 +8,25 @@
 ## Params:
 - stock_code
 - starttime
-- endtime 
+- endtime
+- status
 
 ## return:
 
 ```
 {
-    data: [
-        {
-            price: 6.00,
-            buy: 10,
-            sale: 0
-        },
-        {
-            price: 7.00,
-            buy: 0,
-            sale: 10
-        }
-    ]
+  "status": 0,
+  "data": [
+    {
+      "price": 6.00,
+      "B": 1000,
+      "S": 200
+    },
+    {
+      "price": 7.00,
+      "B": 0,
+      "S": 10
+    }
+  ]
 }
 ```
