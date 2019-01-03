@@ -115,3 +115,10 @@ ORDER BY price;
 - 模型验证
 
 逻辑回归模型预测股票涨跌 => https://www.cnblogs.com/donaldlee2008/p/5595580.html
+
+* [股票量化框架，支持行情获取以及交易](https://github.com/shidenggui/easyquant)
+
+
+# 历史成交明细
+
+* https://blog.csdn.net/weixin_42163573/article/details/81256348
