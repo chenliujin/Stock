@@ -2,12 +2,40 @@
 
 # 买点
 * MACD
+* KDJ
 
 # 卖点
 * MACD
+* KDJ
 
 # 盈亏
-* 收益率
+
+# [分价表](http://vip.stock.finance.sina.com.cn/quotes_service/view/cn_price.php?symbol=sz000777)
+![img](docs/img/分价表.png)
+
+# [历史分价表](http://vip.stock.finance.sina.com.cn/quotes_service/view/cn_price_history.php?symbol=sz000777)
+
+---
+
+# [收益率](https://wiki.mbalib.com/zh-tw/%E6%94%B6%E7%9B%8A%E7%8E%87)
+
+收益率（Earnings Rate/Earnings Yield/Rate of Return/Profitability）
+
+## 计算公式
+
+收益率 = 净利润 / 投资金额 * 100%
+
+## [投资收益率](https://baike.baidu.com/item/%E6%8A%95%E8%B5%84%E6%94%B6%E7%9B%8A%E7%8E%87/2724753)
+
+## 总投资收益率（ROI）
+
+## 资本金净利润率（ROE）
+
+# 日收益率
+# 周收益率
+# 月收益率
+# 年收益率
+# [年化收益率](https://baike.baidu.com/item/%E5%B9%B4%E5%8C%96%E6%94%B6%E7%9B%8A%E7%8E%87/6238244)
 
 ---
 
