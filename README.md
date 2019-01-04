@@ -1,5 +1,3 @@
-# 换手率
-
 # 买点
 * MACD
 * KDJ
@@ -8,14 +6,19 @@
 * MACD
 * KDJ
 
-# 盈亏
-
 # [分价表](http://vip.stock.finance.sina.com.cn/quotes_service/view/cn_price.php?symbol=sz000777)
 ![img](docs/img/分价表.png)
 
 # [历史分价表](http://vip.stock.finance.sina.com.cn/quotes_service/view/cn_price_history.php?symbol=sz000777)
 ![img](docs/img/历史分价表.png)
+
+# 换手率
+
+# 盈亏
+
 ---
+
+
 
 # [收益率](https://wiki.mbalib.com/zh-tw/%E6%94%B6%E7%9B%8A%E7%8E%87)
 
