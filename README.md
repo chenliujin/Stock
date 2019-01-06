@@ -1,6 +1,10 @@
+* https://github.com/pythonstock/stock
+
+
 # 买点
 * MACD
 * KDJ
+* 建仓
 
 # 卖点
 * MACD
@@ -15,6 +19,9 @@
 # 换手率
 
 # 盈亏
+
+# 智能投顾
+* 降准: 1.利多 2.利空
 
 ---
 
@@ -125,3 +132,7 @@ ORDER BY price;
 # 历史成交明细
 
 * https://blog.csdn.net/weixin_42163573/article/details/81256348
+
+
+# 站点
+* [东方财富网](http://www.eastmoney.com/)
