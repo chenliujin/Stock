@@ -120,6 +120,8 @@ ORDER BY price;
 
 
 # TODO
+* https://github.com/quantzzh/dlstock/blob/master/deeplearing-stock-github.py
+* https://github.com/search?p=4&q=%E8%82%A1%E7%A5%A8&type=Repositories
 
 - 机器学习寻找奇点
 - 模型验证
@@ -136,3 +138,6 @@ ORDER BY price;
 
 # 站点
 * [东方财富网](http://www.eastmoney.com/)
+
+
+#
