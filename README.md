@@ -83,7 +83,7 @@
 ### 1.1. OLAP
 
 * 维度：customer_id, stock_code, price, deal_type, status, deal_date
-* 度量：SUM(quantity|volume)
+* 度量：SUM(volume)
 
 强制维度：customer_id, stock_code, price, deal_type
 
@@ -97,7 +97,7 @@
 
 ```
 SELECT
-    customer_id, stock_code, price, deal_type, SUM(quantity) AS volume
+    customer_id, stock_code, price, deal_type, SUM(volume) AS volume
 FROM deal
 WHERE customer_id = 'customer_id' AND stock_code = '{stock_code}' AND deal_date >= '{start_time}' AND deal_date <= '{end_time}' AND status = '{status}'
 GROUP BY customer_id, stock_code, price, deal_type
@@ -120,6 +120,7 @@ ORDER BY price;
 
 
 # TODO
+* 多屏联动切换，股票切换时，所有页面的切换到同一只股票
 * https://github.com/quantzzh/dlstock/blob/master/deeplearing-stock-github.py
 * https://github.com/search?p=4&q=%E8%82%A1%E7%A5%A8&type=Repositories
 
